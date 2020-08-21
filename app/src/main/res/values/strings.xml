@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TouchnetBiometricSample</string>
+    <string name="error_msg_auth_error">Authentication error: %1$s</string>
+    <string name="error_msg_auth_failed">Authentication failed</string>
+    <string name="biometric_login_title">Touchnet Login</string>
+    <string name="biometric_login_subtitle">Biometric Login Required!</string>
+    <string name="biometric_login_desc">Please scan your fingerprint to complete login</string>
+    <string name="biometric_unsupported">Device doesn\'t support biometric features</string>
+    <string name="biometric_unavailable">sorry, biometric unavailable!</string>
+    <string name="please_setup_biometric">sorry, please setup biometric!</string>
+</resources>
