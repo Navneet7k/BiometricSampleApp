@@ -1,18 +1,6 @@
 package com.example.touchnetbiometricsample.view.base
 
-import android.Manifest
-import android.annotation.SuppressLint
-import android.app.ProgressDialog
-import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
-import android.provider.Settings
-import android.util.Log
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -22,8 +10,6 @@ import androidx.lifecycle.ViewModelProviders
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
-import java.lang.ref.WeakReference
-import java.util.*
 import javax.inject.Inject
 
 abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel> : AppCompatActivity(),
@@ -55,6 +41,20 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel> : AppCompatA
         viewDataBinding.setVariable(getBindingVariable(), mViewModel)
         viewDataBinding.lifecycleOwner = this
         viewDataBinding.executePendingBindings()
+        subscribeObserver()
 
+    }
+
+    open fun subscribeObserver() {
+
+    }
+
+    open fun unSubscribeObserver() {
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unSubscribeObserver()
     }
 }

@@ -30,32 +30,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityVM>() {
         super.onCreate(savedInstanceState)
 
         biometricCheck()
-        observeLiveData()
-    }
-
-    private fun observeLiveData() {
-        mViewModel.errorToast.observe(this, Observer {
-            Toast.makeText(
-                this,it,
-                Toast.LENGTH_LONG
-            ).show()
-        })
-
-        mViewModel.authStatus.observe(this, Observer {
-            if (it) {
-                status_txt.text = "Login Successful!"
-                login_button.visibility = View.GONE
-            }
-            else {
-                status_txt.text = "Login Failure!"
-                login_button.visibility = View.VISIBLE
-            }
-        })
-
-        mViewModel.loginClick.observe(this, Observer {
-            if (it)
-                biometricCheck()
-        })
     }
 
     fun biometricCheck() {
@@ -113,5 +87,36 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityVM>() {
             })
 
         biometricPrompt.authenticate(promptInfo)
+    }
+
+    override fun subscribeObserver() {
+        mViewModel.errorToast.observe(this, Observer {
+            Toast.makeText(
+                this,it,
+                Toast.LENGTH_LONG
+            ).show()
+        })
+
+        mViewModel.authStatus.observe(this, Observer {
+            if (it) {
+                status_txt.text = "Login Successful!"
+                login_button.visibility = View.GONE
+            }
+            else {
+                status_txt.text = "Login Failure!"
+                login_button.visibility = View.VISIBLE
+            }
+        })
+
+        mViewModel.loginClick.observe(this, Observer {
+            if (it)
+                biometricCheck()
+        })
+    }
+
+    override fun unSubscribeObserver() {
+        mViewModel.errorToast.removeObservers(this)
+        mViewModel.authStatus.removeObservers(this)
+        mViewModel.loginClick.removeObservers(this)
     }
 }
