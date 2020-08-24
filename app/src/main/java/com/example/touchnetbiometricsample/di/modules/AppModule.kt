@@ -1,0 +1,26 @@
+package com.example.touchnetbiometricsample.di.modules
+
+import android.app.Application
+import android.content.Context
+import com.example.touchnetbiometricsample.MainRepository
+import com.example.touchnetbiometricsample.roomDB.TouchnetDao
+import dagger.Module
+import dagger.Provides
+import javax.inject.Singleton
+
+@Module(includes = [ViewModelModule::class])
+class AppModule{
+
+    @Provides
+    @Singleton
+    internal fun provideContext(application: Application): Context {
+        return application
+    }
+
+    @Provides
+    @Singleton
+    internal fun provideMainRepository(touchnetDao: TouchnetDao) : MainRepository {
+        return MainRepository(touchnetDao)
+    }
+}
+
