@@ -8,15 +8,24 @@
     </data>
 
     <LinearLayout
-        android:background="@color/colorAccent"
-        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@color/colorTouchnet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         tools:context=".view.MainActivity">
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/ivTopLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/onecard_logo_ss"
+            />
 
         <TextView
             android:id="@+id/status_txt"
             android:layout_gravity="center"
+            android:textColor="#ffffff"
             android:layout_width="wrap_content"
             android:textStyle="bold"
             android:layout_height="wrap_content"
