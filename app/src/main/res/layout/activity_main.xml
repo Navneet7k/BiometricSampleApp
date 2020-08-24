@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.example.touchnetbiometricsample.vm.MainActivityVM" />
     </data>
 
     <LinearLayout
@@ -31,6 +34,16 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             />
-
+        <Button
+            android:visibility="gone"
+            android:layout_gravity="bottom"
+            android:id="@+id/login_button"
+            android:onClick="@{()->viewModel.onLogin()}"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:text="LOGIN"
+            android:backgroundTint="@android:color/white"
+             />
     </LinearLayout>
 </layout>

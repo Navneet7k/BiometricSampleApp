@@ -4,6 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import android.provider.Settings.ACTION_FINGERPRINT_ENROLL
+import android.provider.Settings.ACTION_SECURITY_SETTINGS
+import android.view.View
 import android.widget.Toast
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
@@ -28,6 +31,7 @@ class MainActivity : AppCompatActivity() {
             R.layout.activity_main
         );
         mainActivityVM= ViewModelProviders.of(this).get(MainActivityVM::class.java)
+        binding.viewModel = mainActivityVM
 
         biometricCheck()
         observeLiveData()
@@ -42,10 +46,19 @@ class MainActivity : AppCompatActivity() {
         })
 
         mainActivityVM.authStatus.observe(this, Observer {
-            if (it)
+            if (it) {
                 binding.statusTxt.text = "Login Successful!"
-            else
+                binding.loginButton.visibility = View.VISIBLE
+            }
+            else {
                 binding.statusTxt.text = "Login Failure!"
+                binding.loginButton.visibility = View.GONE
+            }
+        })
+
+        mainActivityVM.loginClick.observe(this, Observer {
+            if (it)
+                biometricCheck()
         })
     }
 
@@ -63,8 +76,10 @@ class MainActivity : AppCompatActivity() {
             BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE ->
                 mainActivityVM.errorToast.value = getString(R.string.biometric_unavailable)
 
-            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED ->
+            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
                 mainActivityVM.errorToast.value = getString(R.string.please_setup_biometric)
+                startActivity(Intent(ACTION_FINGERPRINT_ENROLL))
+            }
         }
     }
 
