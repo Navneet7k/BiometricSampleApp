@@ -48,11 +48,11 @@ class MainActivity : AppCompatActivity() {
         mainActivityVM.authStatus.observe(this, Observer {
             if (it) {
                 binding.statusTxt.text = "Login Successful!"
-                binding.loginButton.visibility = View.VISIBLE
+                binding.loginButton.visibility = View.GONE
             }
             else {
                 binding.statusTxt.text = "Login Failure!"
-                binding.loginButton.visibility = View.GONE
+                binding.loginButton.visibility = View.VISIBLE
             }
         })
 
