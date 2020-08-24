@@ -109,7 +109,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityVM>() {
         })
 
         mViewModel.loginClick.observe(this, Observer {
-            if (it)
                 biometricCheck()
         })
     }
