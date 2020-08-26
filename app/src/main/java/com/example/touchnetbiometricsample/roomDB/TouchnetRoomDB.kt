@@ -1,11 +1,8 @@
 package com.example.touchnetbiometricsample.roomDB
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.touchnetbiometricsample.DATABASE_NAME
-import com.example.touchnetbiometricsample.view.model.SchoolsDM
+import com.example.touchnetbiometricsample.model.SchoolsDM
 import java.util.concurrent.Executors
 
 @Database(entities = [SchoolsDM::class], version = 1,exportSchema = false)

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.touchnetbiometricsample.di.ViewModelFactory
 import com.example.touchnetbiometricsample.di.ViewModelKey
-import com.example.touchnetbiometricsample.view.vm.MainActivityVM
+import com.example.touchnetbiometricsample.vm.MainActivityVM
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

@@ -2,7 +2,7 @@ package com.example.touchnetbiometricsample
 
 import androidx.lifecycle.LiveData
 import com.example.touchnetbiometricsample.roomDB.TouchnetDao
-import com.example.touchnetbiometricsample.view.model.SchoolsDM
+import com.example.touchnetbiometricsample.model.SchoolsDM
 import javax.inject.Inject
 
 class MainRepository @Inject constructor( private val touchnetDao: TouchnetDao): BaseRepository() {

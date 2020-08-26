@@ -1,8 +1,6 @@
 package com.example.touchnetbiometricsample.view
 
-import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings.ACTION_FINGERPRINT_ENROLL
 import android.view.View
 import android.widget.Toast
 import androidx.biometric.BiometricManager
@@ -10,12 +8,11 @@ import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.example.touchnetbiometricsample.BR
-import com.example.touchnetbiometricsample.view.vm.MainActivityVM
+import com.example.touchnetbiometricsample.vm.MainActivityVM
 import com.example.touchnetbiometricsample.R
 import com.example.touchnetbiometricsample.databinding.ActivityMainBinding
 import com.example.touchnetbiometricsample.view.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.concurrent.Executor
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainActivityVM>() {
 
@@ -29,31 +26,16 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityVM>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        biometricCheck()
+        biometricInit()
     }
 
-    fun biometricCheck() {
-        val executor = ContextCompat.getMainExecutor(this)
+    private fun biometricInit() {
         val biometricManager = BiometricManager.from(this)
-
-        when (biometricManager.canAuthenticate()) {
-            BiometricManager.BIOMETRIC_SUCCESS ->
-                authUser(executor)
-
-            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE ->
-                mViewModel.errorToast.value = getString(R.string.biometric_unsupported)
-
-            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE ->
-                mViewModel.errorToast.value = getString(R.string.biometric_unavailable)
-
-            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
-                mViewModel.errorToast.value = getString(R.string.please_setup_biometric)
-                startActivity(Intent(ACTION_FINGERPRINT_ENROLL))
-            }
-        }
+        mViewModel.biometricCheck(biometricManager)
     }
 
-    private fun authUser(executor: Executor) {
+    private fun authUser() {
+        val executor = ContextCompat.getMainExecutor(this)
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle(getString(R.string.biometric_login_title))
             .setSubtitle(getString(R.string.biometric_login_subtitle))
@@ -109,7 +91,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityVM>() {
         })
 
         mViewModel.loginClick.observe(this, Observer {
-                biometricCheck()
+                biometricInit()
+        })
+
+        mViewModel.showPrompt.observe(this, Observer {
+            authUser()
         })
     }
 

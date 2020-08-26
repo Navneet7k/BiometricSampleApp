@@ -1,4 +1,4 @@
-package com.example.touchnetbiometricsample.view.model
+package com.example.touchnetbiometricsample.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

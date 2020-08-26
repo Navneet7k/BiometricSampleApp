@@ -61,6 +61,9 @@ dependencies {
     implementation 'com.google.dagger:dagger-android-support:2.15'
     kapt 'com.google.dagger:dagger-android-processor:2.15'
 
+    implementation 'io.github.inflationx:calligraphy3:3.1.1'
+    implementation 'io.github.inflationx:viewpump:2.0.3'
+
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 }

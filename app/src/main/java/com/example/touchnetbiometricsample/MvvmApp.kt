@@ -7,6 +7,9 @@ package com.example.touchnetbiometricsample
     import com.example.touchnetbiometricsample.di.AppInjector
     import dagger.android.DispatchingAndroidInjector
     import dagger.android.HasActivityInjector
+    import io.github.inflationx.calligraphy3.CalligraphyConfig
+    import io.github.inflationx.calligraphy3.CalligraphyInterceptor
+    import io.github.inflationx.viewpump.ViewPump
     import javax.inject.Inject
 
 
@@ -39,6 +42,29 @@ class MvvmApp : MultiDexApplication(), HasActivityInjector {
     override fun onCreate() {
         super.onCreate()
         AppInjector.init(this)
+
+        var fontPath : String;
+//        if(userSelection == 0) {
+//            fontPath = "fonts/FirstFont.ttf"
+//        } else if (userSelection == 1) {
+//            fontPath = "fonts/SecondFont.ttf"
+//        } else {
+//            fontPath = "fonts/ThirdFont.ttf"
+//        }
+        fontPath = "fonts/helveticaneue.ttf"
+
+        ViewPump.init(
+            ViewPump.builder()
+                .addInterceptor(
+                    CalligraphyInterceptor(
+                        CalligraphyConfig.Builder()
+                            .setDefaultFontPath(fontPath)
+                            .setFontAttrId(R.attr.fontPath)
+                            .build()
+                    )
+                )
+                .build()
+        );
     }
 
 
