@@ -7,6 +7,8 @@ import javax.inject.Inject
 
 class MainRepository @Inject constructor( private val touchnetDao: TouchnetDao): BaseRepository() {
 
+    fun getTouchnetDao() : TouchnetDao = touchnetDao
+
     fun getAllSchools() : LiveData<List<SchoolsDM>> {
         return touchnetDao.getAllSchools()
     }
