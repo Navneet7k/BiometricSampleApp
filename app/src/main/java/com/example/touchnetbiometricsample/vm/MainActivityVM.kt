@@ -1,11 +1,11 @@
-package com.example.touchnetbiometricsample.view.vm
+package com.example.touchnetbiometricsample.vm
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.touchnetbiometricsample.MainRepository
 import com.example.touchnetbiometricsample.SingleLiveEvent
 import com.example.touchnetbiometricsample.view.base.BaseViewModel
-import com.example.touchnetbiometricsample.view.model.SchoolsDM
+import com.example.touchnetbiometricsample.model.SchoolsDM
 import javax.inject.Inject
 
 class MainActivityVM @Inject constructor(private val mainRepository: MainRepository) : BaseViewModel() {
@@ -19,5 +19,10 @@ class MainActivityVM @Inject constructor(private val mainRepository: MainReposit
 
     fun getAllSchools() : LiveData<List<SchoolsDM>>{
         return mainRepository.getAllSchools()
+    }
+
+    fun insertTestSchool(){
+        val school = SchoolsDM(1, "School image", "Sample School","School type","admin")
+        mainRepository.insertSchool(school)
     }
 }

@@ -10,7 +10,7 @@ import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.example.touchnetbiometricsample.BR
-import com.example.touchnetbiometricsample.view.vm.MainActivityVM
+import com.example.touchnetbiometricsample.vm.MainActivityVM
 import com.example.touchnetbiometricsample.R
 import com.example.touchnetbiometricsample.databinding.ActivityMainBinding
 import com.example.touchnetbiometricsample.view.base.BaseActivity
@@ -30,6 +30,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityVM>() {
         super.onCreate(savedInstanceState)
 
         biometricCheck()
+        mViewModel.insertTestSchool()
     }
 
     fun biometricCheck() {
@@ -110,6 +111,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityVM>() {
 
         mViewModel.loginClick.observe(this, Observer {
                 biometricCheck()
+        })
+
+        mViewModel.getAllSchools().observe(this, Observer {
+            if (it!=null && it.isNotEmpty()){
+                mViewModel.errorToast.value = it.get(0).username
+                status_txt.text = it.get(0).username
+            }
         })
     }
 
